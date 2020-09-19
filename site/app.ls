@@ -33,7 +33,7 @@ var unit-id # currently selected
 
 initialise!
 calculate!
-
+# DanielTODO this appears to be a sort of run script
 $ \input .on \keypress -> calculate! if (it.key or it.keyIdentifier) is \Enter
 $ \#btnCalculate .on \click calculate
 $ '#metric,#imperial' .on \click -> switch-unit it.target.value
@@ -43,20 +43,20 @@ $ '#metric,#imperial' .on \click -> switch-unit it.target.value
 $ \form .on \submit -> it.preventDefault!
 
 ## helpers
-
+# DanielTODO this is the business logic
 function calculate
   h0    = get-val \h0
-  d0    = get-val \d0
+  h1    = get-val \h1
   unit  = UNITS[unit-id]
   h0_km = h0 * unit.minor.factor * 0.001km_per_m
-  d0_km = d0 * unit.major.factor
+  h1_km = h1 * unit.major.factor
   d1_km = get-horizon-distance_km h0_km
-  h1_m  = get-target-hidden-height_km(d0_km - d1_km) * 1000m_per_km
+  d2_km = get-horizon-distance_km h1_km
   d1    = d1_km / unit.major.factor
-  h1    = h1_m  / unit.minor.factor
+  d     = d1_km + d2_km
 
   $ \#d1 .text d1.toFixed 6
-  $ \#h1 .text h1.toFixed 4
+  $ \#d  .text h1.toFixed 6
 
   qs = queryString.stringify d0:d0, h0:h0, unit:unit-id
   history.replaceState void "" "?#qs"
@@ -73,8 +73,8 @@ function get-val
 
 function initialise
   qs = queryString.parse location.search
-  $ \#d0 .val(if (parseFloat d0 = qs.d0) then d0 else \30)
-  $ \#h0 .val(if (parseFloat h0 = qs.h0) then h0 else \10)
+  $ \#h1 .val(if (parseFloat d0 = qs.d0) then d0 else \1.75)
+  $ \#h2 .val(if (parseFloat h0 = qs.h0) then h0 else \10)
   initialise-unit(if UNITS[u = qs.unit] then u else \imperial)
 
 function initialise-unit
@@ -88,6 +88,6 @@ function show-unit
 function switch-unit
   show-unit unit-id := it
   unit = UNITS[unit-id]
-  $ \#h0 .val(unit.minor.switch * get-val \h0)
-  $ \#d0 .val(unit.major.switch * get-val \d0)
+  $ \#h1 .val(unit.minor.switch * get-val \h1)
+  $ \#h2 .val(unit.major.switch * get-val \h2)
   calculate!

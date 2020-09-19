@@ -1,7 +1,7 @@
 include ./lib/_form
 html
   head
-    title Earth Curve Calculator
+    title How Far Can You See it From?
     meta(charset="utf8")
     link(rel='stylesheet', href='lib-3p/bootstrap-3.2.0-dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='app.css')
@@ -15,16 +15,16 @@ body
       +field-radio('radUnits', 'metric') Metric
       +field-radio('radUnits', 'imperial') Imperial
     .unit-minor
-      +field-text-length('h0', 'h0 = Eye height')
+      +field-text-length('h1', 'h1 = Eye height')
     .unit-major
-      +field-text-length('d0', 'd0 = Target distance')
+      +field-text-length('h1', 'h2 = Target height')
     .col-sm-offset-3
       button(type='submit' id='btnCalculate').btn.btn-primary Calculate
   form.form-horizontal.well
     .unit-major
       +field-static('d1', 'd1 = Horizon distance')
     .unit-minor
-      +field-static('h1', 'h1 = Target hidden height')
+      +field-static('d', 'd = Maximum distance to see top of target')
   svg(viewBox='0 0 800 800')
     // earth
     rect(x='0' y='249' width='800' height='550' fill='#ddd')
