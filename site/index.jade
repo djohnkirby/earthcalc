@@ -16,14 +16,14 @@ body
       +field-radio('radUnits', 'imperial') Imperial
     .unit-minor
       +field-text-length('h1', 'h1 = Eye height')
-    .unit-major
+    .unit-minor
       +field-text-length('h2', 'h2 = Target height')
     .col-sm-offset-3
       button(type='submit' id='btnCalculate').btn.btn-primary Calculate
   form.form-horizontal.well
     .unit-major
       +field-static('d1', 'd1 = Horizon distance')
-    .unit-minor
+    .unit-major
       +field-static('d', 'd = Maximum distance to see top of target')
   svg(viewBox='0 0 800 800')
     // earth
