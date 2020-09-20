@@ -45,20 +45,20 @@ $ \form .on \submit -> it.preventDefault!
 ## helpers
 # DanielTODO this is the business logic
 function calculate
-  h0    = get-val \h0
   h1    = get-val \h1
+  h2    = get-val \h2
   unit  = UNITS[unit-id]
-  h0_km = h0 * unit.minor.factor * 0.001km_per_m
-  h1_km = h1 * unit.major.factor
+  h1_km = h1 * unit.minor.factor * 0.001km_per_m
+  h2_km = h2 * unit.major.factor
   d1_km = get-horizon-distance_km h0_km
   d2_km = get-horizon-distance_km h1_km
   d1    = d1_km / unit.major.factor
   d     = d1_km + d2_km
 
   $ \#d1 .text d1.toFixed 6
-  $ \#d  .text h1.toFixed 6
+  $ \#d  .text d.toFixed 6
 
-  qs = queryString.stringify d0:d0, h0:h0, unit:unit-id
+  qs = queryString.stringify h1:h1, h2:h2, unit:unit-id
   history.replaceState void "" "?#qs"
 
 function get-horizon-distance_km h0_km
@@ -73,8 +73,8 @@ function get-val
 
 function initialise
   qs = queryString.parse location.search
-  $ \#h1 .val(if (parseFloat d0 = qs.d0) then d0 else \1.75)
-  $ \#h2 .val(if (parseFloat h0 = qs.h0) then h0 else \10)
+  $ \#h1 .val(if (parseFloat h1 = qs.h1) then h1 else \1.75)
+  $ \#h2 .val(if (parseFloat h2 = qs.h2) then h2 else \10)
   initialise-unit(if UNITS[u = qs.unit] then u else \imperial)
 
 function initialise-unit
